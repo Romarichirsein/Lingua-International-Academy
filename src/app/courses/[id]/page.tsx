@@ -7,6 +7,30 @@ import { Clock, BookOpen, CheckCircle2, Award, PlayCircle, Shield } from "lucide
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { EnrollButton } from "@/components/EnrollButton";
+import type { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const course = await getCourse(resolvedParams.id);
+  if (!course) return { title: "Cours introuvable" };
+
+  return {
+    title: `${course.title} | Lingua Academy`,
+    description: course.description,
+    openGraph: {
+      title: course.title,
+      description: course.description,
+      images: [course.image],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: course.title,
+      description: course.description,
+      images: [course.image],
+    },
+  };
+}
 
 async function getCourse(id: string) {
   try {

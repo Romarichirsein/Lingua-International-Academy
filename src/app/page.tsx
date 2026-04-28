@@ -4,6 +4,18 @@ import { Button } from "@/components/ui/button";
 import { MOCK_COURSES } from "@/lib/mock-data";
 import { ArrowRight, PlayCircle, CheckCircle2, Star, Clock, BookOpen, User } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Lingua International Academy | Maîtrisez une nouvelle langue",
+  description: "Rejoignez 12 000+ étudiants. Cours en ligne avec experts mondiaux, certifications reconnues, et communauté internationale. Commencez gratuitement.",
+  openGraph: {
+    title: "Lingua International Academy",
+    description: "Maîtrisez une nouvelle langue avec l'excellence. Cours en ligne certifiants.",
+    type: "website",
+  },
+};
+
 
 export default function Home() {
   return (
