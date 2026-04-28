@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Globe, Menu, X, Sun, Moon } from "lucide-react";
+import { Globe, Menu, X, Sun, Moon, User, LogOut } from "lucide-react";
 import { useTheme } from "@/context/ThemeProvider";
+import { createClient } from "@/lib/supabase/client";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 const navLinks = [
   { href: "/courses", label: "Nos Cours" },
@@ -16,6 +18,29 @@ const navLinks = [
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    setUser(null);
+    setDropdownOpen(false);
+    window.location.href = "/";
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/80 backdrop-blur-md">
@@ -48,9 +73,53 @@ export function Navbar() {
             {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
           </button>
 
-          <div className="hidden md:flex gap-3">
-            <Button variant="ghost">Connexion</Button>
-            <Button>Commencer</Button>
+          {/* AUTH BUTTONS */}
+          <div className="hidden md:flex gap-3 items-center">
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+                >
+                  <div className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center text-xs font-bold">
+                    {(user.user_metadata?.full_name || user.email || "U").charAt(0).toUpperCase()}
+                  </div>
+                  <span className="max-w-[120px] truncate">
+                    {user.user_metadata?.full_name || user.email?.split("@")[0]}
+                  </span>
+                </button>
+
+                {dropdownOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl border border-gray-100 shadow-xl z-50 py-2">
+                      <Link
+                        href="/dashboard"
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        <User className="w-4 h-4" /> Mon Dashboard
+                      </Link>
+                      <button
+                        onClick={handleSignOut}
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left"
+                      >
+                        <LogOut className="w-4 h-4" /> Déconnexion
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <>
+                <Link href="/auth/login">
+                  <Button variant="ghost">Connexion</Button>
+                </Link>
+                <Link href="/auth/register">
+                  <Button>Commencer</Button>
+                </Link>
+              </>
+            )}
           </div>
           
           {/* MOBILE MENU BUTTON */}
@@ -79,8 +148,25 @@ export function Navbar() {
               </Link>
             ))}
             <hr className="border-gray-100 my-2" />
-            <Button variant="ghost" className="justify-start">Connexion</Button>
-            <Button className="justify-center">Commencer</Button>
+            {user ? (
+              <>
+                <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
+                  <Button variant="ghost" className="justify-start w-full">Mon Dashboard</Button>
+                </Link>
+                <Button variant="ghost" className="justify-start text-red-600 w-full" onClick={handleSignOut}>
+                  Déconnexion
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link href="/auth/login" onClick={() => setMobileOpen(false)}>
+                  <Button variant="ghost" className="justify-start w-full">Connexion</Button>
+                </Link>
+                <Link href="/auth/register" onClick={() => setMobileOpen(false)}>
+                  <Button className="justify-center w-full">Commencer</Button>
+                </Link>
+              </>
+            )}
           </nav>
         </div>
       )}

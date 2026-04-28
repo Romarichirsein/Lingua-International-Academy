@@ -2,11 +2,31 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { MOCK_COURSES, CATEGORIES } from "@/lib/mock-data";
+import { createClient } from "@/lib/supabase/server";
 import { Search, Clock, BookOpen, User } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 
-export default function CoursesPage() {
+async function getCourses() {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("courses")
+      .select("*")
+      .eq("is_published", true)
+      .order("created_at", { ascending: false });
+
+    if (error || !data || data.length === 0) {
+      return MOCK_COURSES;
+    }
+    return data;
+  } catch {
+    return MOCK_COURSES;
+  }
+}
+
+export default async function CoursesPage() {
+  const courses = await getCourses();
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -53,7 +73,7 @@ export default function CoursesPage() {
         <section className="py-12 md:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {MOCK_COURSES.map((course) => (
+              {courses.map((course: { id: string; title: string; image: string; category: string; duration: string; level: string; instructor: string; price: number }) => (
                 <Link href={`/courses/${course.id}`} key={course.id} className="group flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                   
                   {/* IMAGE CONTAINER */}

@@ -1,15 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { PlayCircle, CheckCircle2, ChevronLeft, Menu } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/client";
 
 interface Lesson {
   id: string;
   title: string;
   duration: string;
-  youtubeId: string;
+  youtube_id?: string;
+  youtubeId?: string;
 }
 
 interface CoursePlayerProps {
@@ -26,11 +28,60 @@ export function CoursePlayer({ courseId, courseTitle, lessons }: CoursePlayerPro
   const currentLesson = lessons[currentLessonIndex];
   const progress = Math.round((Object.keys(completedLessons).length / lessons.length) * 100);
 
+  // Load progress from Supabase
+  useEffect(() => {
+    const loadProgress = async () => {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data } = await supabase
+        .from("lesson_progress")
+        .select("lesson_id, completed")
+        .eq("user_id", user.id)
+        .eq("course_id", courseId)
+        .eq("completed", true);
+
+      if (data) {
+        const loaded: Record<string, boolean> = {};
+        data.forEach((p: { lesson_id: string }) => {
+          loaded[p.lesson_id] = true;
+        });
+        setCompletedLessons(loaded);
+      }
+    };
+    loadProgress();
+  }, [courseId]);
+
+  const saveProgress = useCallback(async (lessonId: string, completed: boolean) => {
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    if (completed) {
+      await supabase.from("lesson_progress").upsert({
+        user_id: user.id,
+        lesson_id: lessonId,
+        course_id: courseId,
+        completed: true,
+        completed_at: new Date().toISOString(),
+      }, { onConflict: "user_id,lesson_id" });
+    } else {
+      await supabase
+        .from("lesson_progress")
+        .update({ completed: false, completed_at: null })
+        .eq("user_id", user.id)
+        .eq("lesson_id", lessonId);
+    }
+  }, [courseId]);
+
   const toggleCompletion = (lessonId: string) => {
+    const newState = !completedLessons[lessonId];
     setCompletedLessons(prev => ({
       ...prev,
-      [lessonId]: !prev[lessonId]
+      [lessonId]: newState
     }));
+    saveProgress(lessonId, newState);
   };
 
   const handleNext = () => {
@@ -41,6 +92,9 @@ export function CoursePlayer({ courseId, courseTitle, lessons }: CoursePlayerPro
       setCurrentLessonIndex(prev => prev + 1);
     }
   };
+
+  // Support both youtube_id (supabase) and youtubeId (mock)
+  const getYoutubeId = (lesson: Lesson) => lesson.youtube_id || lesson.youtubeId || "vBvPzE2x-4o";
 
   return (
     <div className="flex h-screen bg-gray-50 flex-col md:flex-row overflow-hidden font-sans">
@@ -141,7 +195,7 @@ export function CoursePlayer({ courseId, courseTitle, lessons }: CoursePlayerPro
            <iframe
             width="100%"
             height="100%"
-            src={`https://www.youtube.com/embed/${currentLesson.youtubeId}?rel=0&modestbranding=1&autoplay=1`}
+            src={`https://www.youtube.com/embed/${getYoutubeId(currentLesson)}?rel=0&modestbranding=1&autoplay=1`}
             title={currentLesson.title}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

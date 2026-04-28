@@ -2,25 +2,43 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { MOCK_COURSES } from "@/lib/mock-data";
+import { createClient } from "@/lib/supabase/server";
 import { Clock, BookOpen, CheckCircle2, Award, PlayCircle, Shield } from "lucide-react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { EnrollButton } from "@/components/EnrollButton";
 
-// Simulation de fetch de données
 async function getCourse(id: string) {
-  const course = MOCK_COURSES.find(c => c.id === id);
-  if (!course) return null;
-  return course;
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("courses")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error || !data) {
+      // Fallback to mock data
+      const mockCourse = MOCK_COURSES.find(c => c.id === id);
+      return mockCourse || null;
+    }
+    return data;
+  } catch {
+    const mockCourse = MOCK_COURSES.find(c => c.id === id);
+    return mockCourse || null;
+  }
 }
 
-export default async function CourseDetailPage({ params }: { params: { id: string } }) {
-  // Await the params before accessing its properties (Next.js 15 requirement for dynamic routes)
+export default async function CourseDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   const course = await getCourse(resolvedParams.id);
   
   if (!course) {
     notFound();
   }
+
+  // Check youtube_id or youtubeId (mock vs supabase)
+  const youtubeId = course.youtube_id || course.youtubeId || "vBvPzE2x-4o";
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50/30">
@@ -77,7 +95,7 @@ export default async function CourseDetailPage({ params }: { params: { id: strin
                 <iframe
                   width="100%"
                   height="100%"
-                  src={`https://www.youtube.com/embed/${course.youtubeId}?rel=0&modestbranding=1`}
+                  src={`https://www.youtube.com/embed/${youtubeId}?rel=0&modestbranding=1`}
                   title={`Vidéo de présentation: ${course.title}`}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -118,10 +136,9 @@ export default async function CourseDetailPage({ params }: { params: { id: strin
               <div className="text-4xl font-bold text-gray-900 mb-2">{course.price} €</div>
               <p className="text-gray-500 mb-6 text-sm">Paiement unique, accès à vie.</p>
               
-              <Link href={`/learn/${course.id}`} className="block w-full mb-4">
-                <Button className="w-full text-base h-12" size="lg">Accéder au cours</Button>
-              </Link>
-              <p className="text-xs text-center text-gray-400 flex items-center justify-center mb-8">
+              <EnrollButton courseId={course.id} />
+
+              <p className="text-xs text-center text-gray-400 flex items-center justify-center mb-8 mt-4">
                 <Shield className="w-4 h-4 mr-1" /> Garantie satisfait ou remboursé 30 jours
               </p>
 
