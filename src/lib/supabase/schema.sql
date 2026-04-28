@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS profiles (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   full_name TEXT,
   avatar_url TEXT,
+  role TEXT DEFAULT 'student' CHECK (role IN ('admin', 'student')),
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -16,11 +17,12 @@ CREATE TABLE IF NOT EXISTS profiles (
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.profiles (id, full_name, avatar_url)
+  INSERT INTO public.profiles (id, full_name, avatar_url, role)
   VALUES (
     NEW.id,
     COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.raw_user_meta_data->>'name', ''),
-    COALESCE(NEW.raw_user_meta_data->>'avatar_url', '')
+    COALESCE(NEW.raw_user_meta_data->>'avatar_url', ''),
+    COALESCE(NEW.raw_user_meta_data->>'role', 'student')
   );
   RETURN NEW;
 END;
