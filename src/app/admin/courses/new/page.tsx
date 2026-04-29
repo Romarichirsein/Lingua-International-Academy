@@ -2,8 +2,11 @@ import { createCourse } from "../actions";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Save, Image as ImageIcon, Video } from "lucide-react";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 
-export default function NewCoursePage() {
+export default async function NewCoursePage() {
+  const supabase = await createClient();
+  const { data: instructors } = await supabase.from("instructors").select("id, full_name");
   return (
     <div className="max-w-4xl mx-auto space-y-8 pb-20">
       <div className="flex items-center gap-4">
@@ -46,15 +49,18 @@ export default function NewCoursePage() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="instructor" className="block text-sm font-medium text-gray-700 mb-2">Instructeur</label>
-                <input
-                  id="instructor"
-                  name="instructor"
-                  type="text"
+                <label htmlFor="instructor_id" className="block text-sm font-medium text-gray-700 mb-2">Formateur</label>
+                <select
+                  id="instructor_id"
+                  name="instructor_id"
                   required
                   className="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50/50 focus:outline-none focus:ring-2 focus:ring-gray-900 transition-all"
-                  placeholder="Nom du professeur"
-                />
+                >
+                  <option value="">Sélectionnez un formateur</option>
+                  {instructors?.map((inst) => (
+                    <option key={inst.id} value={inst.id}>{inst.full_name}</option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-2">Prix (€)</label>

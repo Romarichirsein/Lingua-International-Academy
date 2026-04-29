@@ -8,7 +8,8 @@ import {
   Users, 
   Settings, 
   BarChart3, 
-  Layers
+  Layers,
+  ShieldCheck
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -24,18 +25,18 @@ const items = [
     icon: BookOpen,
   },
   {
-    title: "Étudiants",
-    href: "/admin/students",
+    title: "Formateurs",
+    href: "/admin/instructors",
     icon: Users,
   },
   {
-    title: "Statistiques",
-    href: "/admin/stats",
-    icon: BarChart3,
+    title: "Certificats",
+    href: "/verify",
+    icon: ShieldCheck,
   },
   {
-    title: "Catégories",
-    href: "/admin/categories",
+    title: "Étudiants",
+    href: "/admin/students",
     icon: Layers,
   },
   {

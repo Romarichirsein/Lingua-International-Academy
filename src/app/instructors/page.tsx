@@ -1,55 +1,129 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { Award, Star } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
+import { 
+  Globe, 
+  Mail, 
+  BookOpen, 
+  Users, 
+  Star,
+  ExternalLink
+} from "lucide-react";
 
-const instructors = [
-  { name: "Sarah Jenkins", specialty: "Business & Management", bio: "15 ans d&apos;expérience en gestion de projets chez Google et Amazon.", rating: 4.9, students: 3200 },
-  { name: "Michael Chen", specialty: "Finance & Comptabilité", bio: "Ancien analyste chez Goldman Sachs, MBA de Harvard Business School.", rating: 4.8, students: 2800 },
-  { name: "Elena Rostova", specialty: "Design 3D & Animation", bio: "Artiste 3D primée, a travaillé sur des productions pour Disney et Pixar.", rating: 4.9, students: 1900 },
-  { name: "David Rodriguez", specialty: "Vente & Marketing", bio: "Fondateur de 3 startups, expert en stratégies de croissance B2B/B2C.", rating: 4.7, students: 4100 },
-  { name: "Aïsha Mbeki", specialty: "Langues & Linguistique", bio: "Polyglotte (7 langues), docteure en sciences du langage, Sorbonne.", rating: 5.0, students: 5600 },
-  { name: "James O&apos;Brien", specialty: "Développement Web", bio: "Senior Engineer chez Vercel, contributeur open-source reconnu.", rating: 4.8, students: 3400 },
-];
+async function getInstructors() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("instructors")
+    .select("*")
+    .order("full_name");
+  
+  // Mock data if table is empty
+  if (!data || data.length === 0) {
+    return [
+      {
+        id: "1",
+        full_name: "Sarah Jenkins",
+        photo_url: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+        specialty: "Expert en Management Agile",
+        bio: "Sarah possède plus de 15 ans d'expérience dans la gestion de projets complexes pour des entreprises du Fortune 500.",
+        social_links: { twitter: "#", linkedin: "#", globe: "#" }
+      },
+      {
+        id: "2",
+        full_name: "Michael Chen",
+        photo_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
+        specialty: "Analyste Financier Senior",
+        bio: "Ancien trader à Wall Street, Michael se consacre désormais à l'enseignement des mathématiques financières.",
+        social_links: { twitter: "#", linkedin: "#" }
+      },
+      {
+        id: "3",
+        full_name: "Elena Rostova",
+        photo_url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
+        specialty: "Artiste 3D & Animatrice",
+        bio: "Passionnée par Blender, Elena a travaillé sur plusieurs longs métrages d'animation avant de rejoindre Lingua Academy.",
+        social_links: { linkedin: "#", globe: "#" }
+      },
+      {
+        id: "4",
+        full_name: "David Rodriguez",
+        photo_url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+        specialty: "Coach en Vente B2B",
+        bio: "David aide les entrepreneurs à doubler leur chiffre d'affaires grâce à des techniques de psychologie de vente avancées.",
+        social_links: { twitter: "#", linkedin: "#" }
+      }
+    ];
+  }
+  return data;
+}
 
-export default function InstructorsPage() {
+export default async function InstructorsPage() {
+  const instructors = await getInstructors();
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-50/50">
       <Navbar />
+      
       <main className="flex-1">
-        <section className="bg-white py-20 md:py-32">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
-              Nos professeurs d&apos;exception
-            </h1>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto">
-              Chaque instructeur est un expert reconnu dans son domaine, sélectionné pour sa pédagogie et son expérience terrain.
+        {/* HERO HEADER */}
+        <section className="bg-gray-900 text-white py-20">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Nos Formateurs Experts</h1>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+              Apprenez auprès des meilleurs. Nos instructeurs sont des professionnels reconnus dans leur domaine, passionnés par la transmission de leur savoir.
             </p>
           </div>
         </section>
 
-        <section className="pb-20 md:pb-32">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {instructors.map((instructor) => (
-                <div key={instructor.name} className="bg-white rounded-2xl border border-gray-100 p-8 hover:shadow-lg transition-shadow duration-300">
-                  <div className="flex items-center mb-6">
-                    <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 border-2 border-gray-100">
-                      <img src={`https://ui-avatars.com/api/?name=${instructor.name.replace(/'/g, '').replace(' ', '+')}&background=random&color=fff&size=128`} alt={instructor.name} className="w-full h-full object-cover" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-gray-900">{instructor.name}</h3>
-                      <p className="text-sm text-gray-500">{instructor.specialty}</p>
+        {/* INSTRUCTORS GRID */}
+        <section className="py-20">
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {instructors.map((instructor: any) => (
+                <div key={instructor.id} className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group">
+                  {/* Photo */}
+                  <div className="aspect-square relative overflow-hidden">
+                    <img 
+                      src={instructor.photo_url || "https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=400&h=400&fit=crop"} 
+                      alt={instructor.full_name} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                      <div className="flex gap-4">
+                        {instructor.social_links?.twitter && (
+                          <a href={instructor.social_links.twitter} className="text-white hover:text-blue-400 transition-colors">
+                            <Mail className="w-5 h-5" />
+                          </a>
+                        )}
+                        {instructor.social_links?.linkedin && (
+                          <a href={instructor.social_links.linkedin} className="text-white hover:text-blue-600 transition-colors">
+                            <ExternalLink className="w-5 h-5" />
+                          </a>
+                        )}
+                        {instructor.social_links?.globe && (
+                          <a href={instructor.social_links.globe} className="text-white hover:text-green-400 transition-colors">
+                            <Globe className="w-5 h-5" />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 leading-relaxed mb-6">{instructor.bio}</p>
-                  <div className="flex items-center justify-between text-sm text-gray-500 pt-4 border-t border-gray-100">
-                    <div className="flex items-center">
-                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-                      {instructor.rating}
-                    </div>
-                    <div className="flex items-center">
-                      <Award className="w-4 h-4 text-gray-400 mr-1" />
-                      {instructor.students.toLocaleString()} étudiants
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">{instructor.full_name}</h3>
+                    <p className="text-blue-600 text-sm font-semibold mb-4">{instructor.specialty}</p>
+                    <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-6">
+                      {instructor.bio}
+                    </p>
+
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-50">
+                      <div className="flex items-center gap-1 text-xs text-gray-500 font-medium">
+                        <Users className="w-4 h-4" /> 1.2k étudiants
+                      </div>
+                      <div className="flex items-center gap-1 text-xs text-amber-500 font-bold">
+                        <Star className="w-4 h-4 fill-current" /> 4.9
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -57,7 +131,24 @@ export default function InstructorsPage() {
             </div>
           </div>
         </section>
+
+        {/* JOIN AS INSTRUCTOR */}
+        <section className="py-20 bg-white border-y border-gray-100">
+          <div className="container mx-auto px-4 text-center max-w-4xl">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-blue-50 text-blue-600 mb-8">
+              <BookOpen className="w-8 h-8" />
+            </div>
+            <h2 className="text-3xl font-bold mb-6">Devenez instructeur sur Lingua Academy</h2>
+            <p className="text-gray-500 text-lg mb-8 leading-relaxed">
+              Partagez votre expertise avec une communauté mondiale d&apos;étudiants. Nous fournissons les outils et le support nécessaires pour créer des cours exceptionnels.
+            </p>
+            <button className="h-14 px-10 rounded-2xl bg-gray-900 text-white font-bold hover:bg-gray-800 transition-all shadow-xl shadow-gray-900/20">
+              Postuler pour enseigner
+            </button>
+          </div>
+        </section>
       </main>
+
       <Footer />
     </div>
   );

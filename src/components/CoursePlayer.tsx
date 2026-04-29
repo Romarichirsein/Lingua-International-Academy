@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { PlayCircle, CheckCircle2, ChevronLeft, Menu } from "lucide-react";
+import { PlayCircle, CheckCircle2, ChevronLeft, Menu, Award } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
@@ -212,6 +212,23 @@ export function CoursePlayer({ courseId, courseTitle, lessons }: CoursePlayerPro
           </div>
           
           <div className="flex w-full sm:w-auto items-center gap-3">
+            {progress === 100 && (
+              <Button 
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold gap-2 animate-bounce hover:animate-none"
+                onClick={async () => {
+                  try {
+                    const { generateCertificate } = await import("@/app/learn/actions");
+                    const { code } = await generateCertificate(courseId);
+                    window.location.href = `/verify?code=${code}`;
+                  } catch (err) {
+                    alert("Erreur lors de la génération du certificat.");
+                  }
+                }}
+              >
+                <Award className="w-5 h-5" /> Obtenir mon Certificat
+              </Button>
+            )}
+            
             <Button 
               variant="outline" 
               className={`flex-1 sm:flex-none ${completedLessons[currentLesson.id] ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100 hover:text-green-800' : ''}`}

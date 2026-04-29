@@ -9,7 +9,7 @@ export async function createCourse(formData: FormData) {
 
   const title = formData.get("title") as string;
   const description = formData.get("description") as string;
-  const instructor = formData.get("instructor") as string;
+  const instructor_id = formData.get("instructor_id") as string;
   const price = parseInt(formData.get("price") as string);
   const category = formData.get("category") as string;
   const duration = formData.get("duration") as string;
@@ -25,7 +25,7 @@ export async function createCourse(formData: FormData) {
     id,
     title,
     description,
-    instructor,
+    instructor_id,
     price,
     category,
     duration,

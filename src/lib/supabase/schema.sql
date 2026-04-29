@@ -49,16 +49,30 @@ INSERT INTO categories (name, slug) VALUES
   ('Développement', 'developpement')
 ON CONFLICT (slug) DO NOTHING;
 
--- 3. COURSES
+-- 3. INSTRUCTORS
+CREATE TABLE IF NOT EXISTS instructors (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  full_name TEXT NOT NULL,
+  photo_url TEXT,
+  bio TEXT,
+  specialty TEXT,
+  social_links JSONB DEFAULT '{}'::jsonb, -- {twitter: '...', linkedin: '...', etc.}
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 4. COURSES (Updated)
 CREATE TABLE IF NOT EXISTS courses (
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
   description TEXT,
-  instructor TEXT NOT NULL,
+  objectives TEXT[], -- Objectifs du cours
+  prerequisites TEXT[], -- Pré-requis
+  instructor_id UUID REFERENCES instructors(id) ON DELETE SET NULL,
+  instructor_name TEXT, -- Fallback
   duration TEXT,
   level TEXT,
   price INTEGER DEFAULT 0,
-  youtube_id TEXT,
+  youtube_id TEXT, -- Vidéo d'intro
   image TEXT,
   category_id INTEGER REFERENCES categories(id),
   category TEXT,
@@ -67,16 +81,35 @@ CREATE TABLE IF NOT EXISTS courses (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- 4. LESSONS
+-- 5. LESSONS
 CREATE TABLE IF NOT EXISTS lessons (
   id TEXT PRIMARY KEY,
   course_id TEXT NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+  section_name TEXT DEFAULT 'Introduction', -- Pour regrouper les leçons par chapitres
   title TEXT NOT NULL,
   duration TEXT,
   youtube_id TEXT NOT NULL,
   sort_order INTEGER DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- 6. CERTIFICATES
+CREATE TABLE IF NOT EXISTS certificates (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  course_id TEXT NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+  certificate_code TEXT UNIQUE NOT NULL, -- Code de vérification
+  issued_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(user_id, course_id)
+);
+
+-- Enable RLS for new tables
+ALTER TABLE instructors ENABLE ROW LEVEL SECURITY;
+ALTER TABLE certificates ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Anyone can view instructors" ON instructors FOR SELECT USING (TRUE);
+CREATE POLICY "Anyone can verify certificates" ON certificates FOR SELECT USING (TRUE);
+CREATE POLICY "Users can view own certificates" ON certificates FOR SELECT USING (auth.uid() = user_id);
 
 -- 5. ENROLLMENTS
 CREATE TABLE IF NOT EXISTS enrollments (
