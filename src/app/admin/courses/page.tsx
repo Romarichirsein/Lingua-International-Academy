@@ -92,7 +92,7 @@ export default async function AdminCoursesPage() {
                     </span>
                   </td>
                   <td className="px-6 py-5 text-sm font-bold text-gray-900">
-                    {course.price} €
+                    {course.price.toLocaleString()} FCFA
                   </td>
                   <td className="px-6 py-5">
                     {course.is_published ? (

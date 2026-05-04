@@ -33,10 +33,7 @@ export function Footer() {
           
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <Globe className="h-6 w-6 text-gray-900" />
-              <span className="text-xl font-bold tracking-tight text-gray-900">
-                Lingua Academy
-              </span>
+              <img src="/logo.png" alt="Lingua Academy" className="h-10 w-auto" />
             </div>
             <p className="text-gray-500 text-sm mb-6 leading-relaxed">
               L&apos;académie d&apos;apprentissage des langues la plus avancée au monde. Maîtrisez une nouvelle langue avec nos experts internationaux.

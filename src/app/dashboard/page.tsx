@@ -168,7 +168,7 @@ export default async function DashboardPage() {
                     </div>
                     <div className="p-4">
                       <h3 className="font-bold text-gray-900 text-sm line-clamp-2">{course.title}</h3>
-                      <div className="mt-2 font-bold text-gray-900">{course.price} €</div>
+                      <div className="mt-2 font-bold text-gray-900">{course.price.toLocaleString()} FCFA</div>
                     </div>
                   </Link>
                 ))}

@@ -43,7 +43,7 @@ export default async function AdminDashboardPage() {
     },
     {
       title: "Revenus (Est.)",
-      value: "1,250 €",
+      value: "1 250 000 FCFA",
       icon: DollarSign,
       change: "+8%",
       trend: "up",

@@ -11,7 +11,7 @@ import type { User as SupabaseUser } from "@supabase/supabase-js";
 const navLinks = [
   { href: "/courses", label: "Nos Cours" },
   { href: "/instructors", label: "Formateurs" },
-  { href: "/verify", label: "Vérification" },
+  { href: "/verify", label: "Vérification Certificat" },
   { href: "/about", label: "À propos" },
   { href: "/contact", label: "Contact" },
 ];
@@ -71,12 +71,9 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/80 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* LOGO */}
-        <div className="flex items-center gap-2">
-          <Globe className="h-6 w-6 text-gray-900" />
-          <Link href="/" className="text-xl font-bold tracking-tight text-gray-900">
-            Lingua Academy
-          </Link>
-        </div>
+        <Link href="/" className="flex items-center gap-2">
+          <img src="/logo.png" alt="Lingua Academy" className="h-10 w-auto" />
+        </Link>
         
         {/* DESKTOP NAV */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">

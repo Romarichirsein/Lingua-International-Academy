@@ -1,13 +1,15 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { createClient } from "@/lib/supabase/server";
+import { FadeIn } from "@/components/animations/FadeIn";
 import { 
   Globe, 
   Mail, 
   BookOpen, 
   Users, 
   Star,
-  ExternalLink
+  ExternalLink,
+  User
 } from "lucide-react";
 
 async function getInstructors() {
@@ -17,7 +19,6 @@ async function getInstructors() {
     .select("*")
     .order("full_name");
   
-  // Mock data if table is empty
   if (!data || data.length === 0) {
     return [
       {
@@ -64,14 +65,18 @@ export default async function InstructorsPage() {
     <div className="flex flex-col min-h-screen bg-gray-50/50">
       <Navbar />
       
-      <main className="flex-1">
+      <main className="flex-1 overflow-hidden">
         {/* HERO HEADER */}
         <section className="bg-gray-900 text-white py-20">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Nos Formateurs Experts</h1>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Apprenez auprès des meilleurs. Nos instructeurs sont des professionnels reconnus dans leur domaine, passionnés par la transmission de leur savoir.
-            </p>
+            <FadeIn>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">Nos Formateurs Experts</h1>
+            </FadeIn>
+            <FadeIn delay={0.2}>
+              <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                Apprenez auprès des meilleurs. Nos instructeurs sont des professionnels reconnus dans leur domaine, passionnés par la transmission de leur savoir.
+              </p>
+            </FadeIn>
           </div>
         </section>
 
@@ -79,54 +84,52 @@ export default async function InstructorsPage() {
         <section className="py-20">
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {instructors.map((instructor: any) => (
-                <div key={instructor.id} className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group">
-                  {/* Photo */}
-                  <div className="aspect-square relative overflow-hidden">
-                    <img 
-                      src={instructor.photo_url || "https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=400&h=400&fit=crop"} 
-                      alt={instructor.full_name} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                      <div className="flex gap-4">
-                        {instructor.social_links?.twitter && (
-                          <a href={instructor.social_links.twitter} className="text-white hover:text-blue-400 transition-colors">
-                            <Mail className="w-5 h-5" />
-                          </a>
-                        )}
-                        {instructor.social_links?.linkedin && (
-                          <a href={instructor.social_links.linkedin} className="text-white hover:text-blue-600 transition-colors">
-                            <ExternalLink className="w-5 h-5" />
-                          </a>
-                        )}
-                        {instructor.social_links?.globe && (
-                          <a href={instructor.social_links.globe} className="text-white hover:text-green-400 transition-colors">
-                            <Globe className="w-5 h-5" />
-                          </a>
-                        )}
+              {instructors.map((instructor: any, idx: number) => (
+                <FadeIn key={instructor.id} delay={0.1 * idx}>
+                  <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full flex flex-col">
+                    {/* Photo */}
+                    <div className="aspect-square relative overflow-hidden bg-gray-100 flex items-center justify-center shrink-0">
+                      <User className="w-20 h-20 text-gray-300" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <div className="flex gap-4">
+                          {instructor.social_links?.twitter && (
+                            <a href={instructor.social_links.twitter} className="text-white hover:text-blue-400 transition-colors">
+                              <Mail className="w-5 h-5" />
+                            </a>
+                          )}
+                          {instructor.social_links?.linkedin && (
+                            <a href={instructor.social_links.linkedin} className="text-white hover:text-blue-600 transition-colors">
+                              <ExternalLink className="w-5 h-5" />
+                            </a>
+                          )}
+                          {instructor.social_links?.globe && (
+                            <a href={instructor.social_links.globe} className="text-white hover:text-green-400 transition-colors">
+                              <Globe className="w-5 h-5" />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6 flex flex-col flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-1">{instructor.full_name}</h3>
+                      <p className="text-blue-600 text-sm font-semibold mb-4">{instructor.specialty}</p>
+                      <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-6">
+                        {instructor.bio}
+                      </p>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-gray-50 mt-auto">
+                        <div className="flex items-center gap-1 text-xs text-gray-500 font-medium">
+                          <Users className="w-4 h-4" /> 1.2k étudiants
+                        </div>
+                        <div className="flex items-center gap-1 text-xs text-amber-500 font-bold">
+                          <Star className="w-4 h-4 fill-current" /> 4.9
+                        </div>
                       </div>
                     </div>
                   </div>
-
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-1">{instructor.full_name}</h3>
-                    <p className="text-blue-600 text-sm font-semibold mb-4">{instructor.specialty}</p>
-                    <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-6">
-                      {instructor.bio}
-                    </p>
-
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-50">
-                      <div className="flex items-center gap-1 text-xs text-gray-500 font-medium">
-                        <Users className="w-4 h-4" /> 1.2k étudiants
-                      </div>
-                      <div className="flex items-center gap-1 text-xs text-amber-500 font-bold">
-                        <Star className="w-4 h-4 fill-current" /> 4.9
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                </FadeIn>
               ))}
             </div>
           </div>
@@ -135,16 +138,18 @@ export default async function InstructorsPage() {
         {/* JOIN AS INSTRUCTOR */}
         <section className="py-20 bg-white border-y border-gray-100">
           <div className="container mx-auto px-4 text-center max-w-4xl">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-blue-50 text-blue-600 mb-8">
-              <BookOpen className="w-8 h-8" />
-            </div>
-            <h2 className="text-3xl font-bold mb-6">Devenez instructeur sur Lingua Academy</h2>
-            <p className="text-gray-500 text-lg mb-8 leading-relaxed">
-              Partagez votre expertise avec une communauté mondiale d&apos;étudiants. Nous fournissons les outils et le support nécessaires pour créer des cours exceptionnels.
-            </p>
-            <button className="h-14 px-10 rounded-2xl bg-gray-900 text-white font-bold hover:bg-gray-800 transition-all shadow-xl shadow-gray-900/20">
-              Postuler pour enseigner
-            </button>
+            <FadeIn>
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-blue-50 text-blue-600 mb-8">
+                <BookOpen className="w-8 h-8" />
+              </div>
+              <h2 className="text-3xl font-bold mb-6">Devenez instructeur sur Lingua Academy</h2>
+              <p className="text-gray-500 text-lg mb-8 leading-relaxed">
+                Partagez votre expertise avec une communauté mondiale d'étudiants. Nous fournissons les outils et le support nécessaires pour créer des cours exceptionnels.
+              </p>
+              <button className="h-14 px-10 rounded-2xl bg-gray-900 text-white font-bold hover:bg-gray-800 transition-all shadow-xl shadow-gray-900/20">
+                Postuler pour enseigner
+              </button>
+            </FadeIn>
           </div>
         </section>
       </main>
