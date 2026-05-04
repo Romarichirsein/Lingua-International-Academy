@@ -4,6 +4,8 @@ import { login } from "@/app/auth/actions";
 import Link from "next/link";
 import { Globe, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SocialAuthButtons } from "@/components/auth/SocialAuthButtons";
+import { PhoneAuth } from "@/components/auth/PhoneAuth";
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string; redirect?: string }> }) {
   const params = await searchParams;
@@ -33,7 +35,21 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
               </div>
             )}
 
-            {/* FORM */}
+            {/* SOCIAL AUTH */}
+            <SocialAuthButtons redirectTo={redirectTo} />
+
+            <PhoneAuth redirectTo={redirectTo} />
+
+            <div className="relative mt-6 mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-gray-200" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="bg-white px-2 text-gray-500">Ou avec votre email</span>
+              </div>
+            </div>
+
+            {/* EMAIL FORM */}
             <form className="space-y-5">
               <input type="hidden" name="redirect" value={redirectTo} />
               <div>
