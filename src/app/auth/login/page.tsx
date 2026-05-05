@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { FadeIn } from "@/components/animations/FadeIn";
 import { login } from "@/app/auth/actions";
 import Link from "next/link";
 import { Globe, AlertCircle } from "lucide-react";
@@ -19,13 +20,15 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         <div className="w-full max-w-md">
           <div className="bg-white rounded-2xl border border-gray-100 shadow-xl p-8">
             {/* HEADER */}
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gray-900 text-white mb-4">
-                <Globe className="w-6 h-6" />
+            <FadeIn>
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-lingua-blue text-white mb-4">
+                  <Globe className="w-6 h-6" />
+                </div>
+                <h1 className="text-2xl font-bold text-gray-900 mb-2">Bon retour !</h1>
+                <p className="text-sm text-gray-500">Connectez-vous pour accéder à vos cours</p>
               </div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">Bon retour !</h1>
-              <p className="text-sm text-gray-500">Connectez-vous pour accéder à vos cours</p>
-            </div>
+            </FadeIn>
 
             {/* ERROR */}
             {error && (
@@ -49,41 +52,43 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
               </div>
             </div>
 
-            {/* EMAIL FORM */}
-            <form className="space-y-5">
-              <input type="hidden" name="redirect" value={redirectTo} />
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 transition-colors"
-                  placeholder="vous@exemple.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  minLength={6}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 transition-colors"
-                  placeholder="••••••••"
-                />
-              </div>
-              <Button formAction={login} className="w-full h-12 text-base">
-                Se connecter
-              </Button>
-            </form>
+            <FadeIn delay={0.2}>
+              {/* EMAIL FORM */}
+              <form className="space-y-5">
+                <input type="hidden" name="redirect" value={redirectTo} />
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-lingua-blue transition-colors"
+                    placeholder="vous@exemple.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                    minLength={6}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-lingua-blue transition-colors"
+                    placeholder="••••••••"
+                  />
+                </div>
+                <Button formAction={login} variant="lingua-blue" className="w-full h-12 text-base">
+                  Se connecter
+                </Button>
+              </form>
+            </FadeIn>
 
             {/* FOOTER */}
             <p className="text-center text-sm text-gray-500 mt-6">
               Pas encore de compte ?{" "}
-              <Link href="/auth/register" className="font-medium text-gray-900 hover:underline">
+              <Link href="/auth/register" className="font-medium text-lingua-blue hover:underline">
                 Créer un compte
               </Link>
             </p>

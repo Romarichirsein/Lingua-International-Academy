@@ -220,7 +220,7 @@ export function CoursePlayer({ courseId, courseTitle, lessons }: CoursePlayerPro
                     const { generateCertificate } = await import("@/app/learn/actions");
                     const { code } = await generateCertificate(courseId);
                     window.location.href = `/verify?code=${code}`;
-                  } catch (err) {
+                  } catch {
                     alert("Erreur lors de la génération du certificat.");
                   }
                 }}

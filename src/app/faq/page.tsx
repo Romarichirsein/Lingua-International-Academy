@@ -20,8 +20,8 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   return (
     <div className="border-b border-gray-100">
       <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between py-6 text-left group">
-        <span className="text-base font-medium text-gray-900 pr-8 group-hover:text-gray-600 transition-colors">{q}</span>
-        <ChevronDown className={`w-5 h-5 text-gray-400 shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        <span className="text-base font-medium pr-8 group-hover:text-lingua-blue transition-colors">{q}</span>
+        <ChevronDown className={`w-5 h-5 text-lingua-blue shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
         <div className="pb-6 text-gray-500 leading-relaxed text-sm -mt-2">
@@ -40,7 +40,7 @@ export default function FaqPage() {
         <section className="bg-white py-20 md:py-32">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl">
             <FadeIn>
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+              <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-lingua-blue to-lingua-red mb-6 tracking-tight">
                 Questions fréquentes
               </h1>
             </FadeIn>

@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { 
@@ -8,8 +9,7 @@ import {
   BookOpen, 
   Users, 
   Star,
-  ExternalLink,
-  User
+  ExternalLink
 } from "lucide-react";
 
 async function getInstructors() {
@@ -70,7 +70,7 @@ export default async function InstructorsPage() {
         <section className="bg-gray-900 text-white py-20">
           <div className="container mx-auto px-4 text-center">
             <FadeIn>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Nos Formateurs Experts</h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/60 mb-6">Nos Formateurs Experts</h1>
             </FadeIn>
             <FadeIn delay={0.2}>
               <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
@@ -84,12 +84,14 @@ export default async function InstructorsPage() {
         <section className="py-20">
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {instructors.map((instructor: any, idx: number) => (
                 <FadeIn key={instructor.id} delay={0.1 * idx}>
                   <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full flex flex-col">
                     {/* Photo */}
                     <div className="aspect-square relative overflow-hidden bg-gray-100 flex items-center justify-center shrink-0">
-                      <User className="w-20 h-20 text-gray-300" />
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={instructor.photo_url} alt={instructor.full_name} className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                         <div className="flex gap-4">
                           {instructor.social_links?.twitter && (
@@ -113,7 +115,7 @@ export default async function InstructorsPage() {
 
                     {/* Content */}
                     <div className="p-6 flex flex-col flex-1">
-                      <h3 className="text-xl font-bold text-gray-900 mb-1">{instructor.full_name}</h3>
+                      <h3 className="text-xl font-bold mb-1">{instructor.full_name}</h3>
                       <p className="text-blue-600 text-sm font-semibold mb-4">{instructor.specialty}</p>
                       <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-6">
                         {instructor.bio}
@@ -121,7 +123,7 @@ export default async function InstructorsPage() {
 
                       <div className="flex items-center justify-between pt-4 border-t border-gray-50 mt-auto">
                         <div className="flex items-center gap-1 text-xs text-gray-500 font-medium">
-                          <Users className="w-4 h-4" /> 1.2k étudiants
+                          <Users className="w-4 h-4 text-blue-500" /> 1.2k étudiants
                         </div>
                         <div className="flex items-center gap-1 text-xs text-amber-500 font-bold">
                           <Star className="w-4 h-4 fill-current" /> 4.9
@@ -139,16 +141,16 @@ export default async function InstructorsPage() {
         <section className="py-20 bg-white border-y border-gray-100">
           <div className="container mx-auto px-4 text-center max-w-4xl">
             <FadeIn>
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-blue-50 text-blue-600 mb-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-lingua-blue/10 text-lingua-blue mb-8">
                 <BookOpen className="w-8 h-8" />
               </div>
               <h2 className="text-3xl font-bold mb-6">Devenez instructeur sur Lingua Academy</h2>
               <p className="text-gray-500 text-lg mb-8 leading-relaxed">
-                Partagez votre expertise avec une communauté mondiale d'étudiants. Nous fournissons les outils et le support nécessaires pour créer des cours exceptionnels.
+                Partagez votre expertise avec une communauté mondiale d&apos;étudiants. Nous fournissons les outils et le support nécessaires pour créer des cours exceptionnels.
               </p>
-              <button className="h-14 px-10 rounded-2xl bg-gray-900 text-white font-bold hover:bg-gray-800 transition-all shadow-xl shadow-gray-900/20">
+              <Button variant="lingua-blue" size="lg" className="h-14 px-10 rounded-2xl shadow-xl shadow-lingua-blue/20">
                 Postuler pour enseigner
-              </button>
+              </Button>
             </FadeIn>
           </div>
         </section>

@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Globe, Menu, X, Sun, Moon, User, LogOut, Settings } from "lucide-react";
+import { Menu, X, Sun, Moon, User, LogOut, Settings } from "lucide-react";
 import { useTheme } from "@/context/ThemeProvider";
 import { createClient } from "@/lib/supabase/client";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
@@ -72,13 +73,13 @@ export function Navbar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="Lingua Academy" className="h-10 w-auto" />
+          <Image src="/logo.png" alt="Lingua Academy" width={160} height={40} className="h-10 w-auto" />
         </Link>
         
         {/* DESKTOP NAV */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:text-gray-900 transition-colors">
+            <Link key={link.href} href={link.href} className="hover:text-lingua-blue transition-colors">
               {link.label}
             </Link>
           ))}
@@ -147,7 +148,7 @@ export function Navbar() {
                   <Button variant="ghost">Connexion</Button>
                 </Link>
                 <Link href="/auth/register">
-                  <Button>Commencer</Button>
+                  <Button variant="lingua-blue">Commencer</Button>
                 </Link>
               </>
             )}
@@ -199,7 +200,7 @@ export function Navbar() {
                   <Button variant="ghost" className="justify-start w-full">Connexion</Button>
                 </Link>
                 <Link href="/auth/register" onClick={() => setMobileOpen(false)}>
-                  <Button className="justify-center w-full">Commencer</Button>
+                  <Button variant="lingua-blue" className="justify-center w-full">Commencer</Button>
                 </Link>
               </>
             )}

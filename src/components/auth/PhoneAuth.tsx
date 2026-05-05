@@ -26,6 +26,7 @@ export function PhoneAuth({ redirectTo = "/dashboard" }: { redirectTo?: string }
       });
       if (error) throw error;
       setStep(2);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || "Impossible d'envoyer le code.");
     } finally {
@@ -46,6 +47,7 @@ export function PhoneAuth({ redirectTo = "/dashboard" }: { redirectTo?: string }
       });
       if (error) throw error;
       router.push(redirectTo);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || "Code invalide.");
     } finally {

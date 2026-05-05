@@ -7,7 +7,6 @@ import {
   BookOpen, 
   Users, 
   Settings, 
-  BarChart3, 
   Layers,
   ShieldCheck
 } from "lucide-react";

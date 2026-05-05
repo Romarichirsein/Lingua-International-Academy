@@ -6,7 +6,6 @@ import { MOCK_COURSES } from "@/lib/mock-data";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { 
   Clock, 
-  BookOpen, 
   CheckCircle2, 
   Award, 
   PlayCircle, 
@@ -72,10 +71,12 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
   if (!course) notFound();
 
   // Unified curriculum building
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let curriculum: any[] = [];
   if (course.isMock && course.curriculum) {
     curriculum = course.curriculum;
   } else if (course.lessons && course.lessons.length > 0) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sectionsObj = course.lessons.reduce((acc: any, lesson: any) => {
       const sectionName = lesson.section_name || "Introduction";
       if (!acc[sectionName]) acc[sectionName] = [];
@@ -195,6 +196,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
                 </div>
 
                 <div className="border border-gray-200 rounded-lg divide-y divide-gray-200 overflow-hidden shadow-sm">
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                   {curriculum.map((section: any, idx: number) => (
                     <div key={idx} className="bg-white group">
                       {/* Using group and focus-within to mimic accordion without client state for simplicity, or just show all */}
@@ -207,6 +209,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
                           <span className="text-sm text-gray-500">{section.lessons.length} sessions</span>
                         </summary>
                         <div className="divide-y divide-gray-100 bg-white">
+                          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                           {section.lessons.map((lesson: any, i: number) => (
                             <div key={i} className="p-4 pl-12 flex items-center justify-between text-sm hover:bg-gray-50/50 transition-colors">
                               <div className="flex items-center gap-3 text-gray-700">
@@ -259,6 +262,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
                 
                 {/* VIDEO PREVIEW ON DESKTOP */}
                 <div className="hidden lg:block aspect-video bg-gray-900 relative group cursor-pointer">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={course.image} alt="Preview" className="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-xl">
@@ -266,7 +270,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
                     </div>
                   </div>
                   <div className="absolute bottom-4 left-0 right-0 text-center font-bold text-white text-sm">
-                    Regarder l'aperçu
+                    Regarder l&apos;aperçu
                   </div>
                 </div>
 

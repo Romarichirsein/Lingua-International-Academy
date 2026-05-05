@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Globe } from "lucide-react";
+import Image from "next/image";
 
 function XIcon({ className }: { className?: string }) {
   return (
@@ -33,43 +33,43 @@ export function Footer() {
           
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <img src="/logo.png" alt="Lingua Academy" className="h-10 w-auto" />
+              <Image src="/logo.png" alt="Lingua Academy" width={160} height={40} className="h-10 w-auto" />
             </div>
             <p className="text-gray-500 text-sm mb-6 leading-relaxed">
               L&apos;académie d&apos;apprentissage des langues la plus avancée au monde. Maîtrisez une nouvelle langue avec nos experts internationaux.
             </p>
             <div className="flex gap-4 text-gray-400">
-              <a href="#" className="hover:text-gray-900 transition-colors"><XIcon className="h-5 w-5" /></a>
-              <a href="#" className="hover:text-gray-900 transition-colors"><LinkedinIcon className="h-5 w-5" /></a>
-              <a href="#" className="hover:text-gray-900 transition-colors"><InstagramIcon className="h-5 w-5" /></a>
+              <a href="#" className="hover:text-lingua-blue transition-colors"><XIcon className="h-5 w-5" /></a>
+              <a href="#" className="hover:text-lingua-blue transition-colors"><LinkedinIcon className="h-5 w-5" /></a>
+              <a href="#" className="hover:text-lingua-blue transition-colors"><InstagramIcon className="h-5 w-5" /></a>
             </div>
           </div>
 
           <div>
             <h3 className="font-semibold text-gray-900 mb-4">Plateforme</h3>
             <ul className="space-y-3 text-sm text-gray-500">
-              <li><Link href="/courses" className="hover:text-gray-900 transition-colors">Tous les cours</Link></li>
-              <li><Link href="/pricing" className="hover:text-gray-900 transition-colors">Tarifs</Link></li>
-              <li><Link href="/instructors" className="hover:text-gray-900 transition-colors">Nos professeurs</Link></li>
-              <li><Link href="/faq" className="hover:text-gray-900 transition-colors">FAQ</Link></li>
+              <li><Link href="/courses" className="hover:text-lingua-blue transition-colors">Tous les cours</Link></li>
+              <li><Link href="/pricing" className="hover:text-lingua-blue transition-colors">Tarifs</Link></li>
+              <li><Link href="/instructors" className="hover:text-lingua-blue transition-colors">Nos professeurs</Link></li>
+              <li><Link href="/faq" className="hover:text-lingua-blue transition-colors">FAQ</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold text-gray-900 mb-4">Entreprise</h3>
             <ul className="space-y-3 text-sm text-gray-500">
-              <li><Link href="/about" className="hover:text-gray-900 transition-colors">À propos</Link></li>
-              <li><Link href="/careers" className="hover:text-gray-900 transition-colors">Carrières</Link></li>
-              <li><Link href="/blog" className="hover:text-gray-900 transition-colors">Blog</Link></li>
-              <li><Link href="/contact" className="hover:text-gray-900 transition-colors">Contact</Link></li>
+              <li><Link href="/about" className="hover:text-lingua-blue transition-colors">À propos</Link></li>
+              <li><Link href="/careers" className="hover:text-lingua-blue transition-colors">Carrières</Link></li>
+              <li><Link href="/blog" className="hover:text-lingua-blue transition-colors">Blog</Link></li>
+              <li><Link href="/contact" className="hover:text-lingua-blue transition-colors">Contact</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold text-gray-900 mb-4">Légal</h3>
             <ul className="space-y-3 text-sm text-gray-500">
-              <li><Link href="/privacy" className="hover:text-gray-900 transition-colors">Confidentialité</Link></li>
-              <li><Link href="/terms" className="hover:text-gray-900 transition-colors">Conditions d&apos;utilisation</Link></li>
+              <li><Link href="/privacy" className="hover:text-lingua-blue transition-colors">Confidentialité</Link></li>
+              <li><Link href="/terms" className="hover:text-lingua-blue transition-colors">Conditions d&apos;utilisation</Link></li>
             </ul>
           </div>
         </div>

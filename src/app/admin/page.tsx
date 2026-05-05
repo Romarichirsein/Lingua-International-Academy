@@ -23,7 +23,7 @@ export default async function AdminDashboardPage() {
       icon: Users,
       change: "+12%",
       trend: "up",
-      color: "blue",
+      color: "lingua-blue",
     },
     {
       title: "Cours Actifs",
@@ -31,7 +31,7 @@ export default async function AdminDashboardPage() {
       icon: BookOpen,
       change: "+2",
       trend: "up",
-      color: "purple",
+      color: "lingua-green",
     },
     {
       title: "Inscriptions",
@@ -39,7 +39,7 @@ export default async function AdminDashboardPage() {
       icon: TrendingUp,
       change: "+25%",
       trend: "up",
-      color: "green",
+      color: "lingua-blue",
     },
     {
       title: "Revenus (Est.)",
@@ -47,14 +47,14 @@ export default async function AdminDashboardPage() {
       icon: DollarSign,
       change: "+8%",
       trend: "up",
-      color: "amber",
+      color: "lingua-red",
     },
   ];
 
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard Vue d&apos;ensemble</h1>
+        <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-lingua-blue to-lingua-red mb-2">Dashboard Vue d&apos;ensemble</h1>
         <p className="text-gray-500 text-lg">Bienvenue dans votre espace d&apos;administration.</p>
       </div>
 
@@ -63,10 +63,10 @@ export default async function AdminDashboardPage() {
         {stats.map((stat) => (
           <div key={stat.title} className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between mb-4">
-              <div className={`p-3 rounded-2xl bg-${stat.color}-50`}>
-                <stat.icon className={`w-6 h-6 text-${stat.color}-600`} />
+              <div className={`p-3 rounded-2xl bg-${stat.color}/10`}>
+                <stat.icon className={`w-6 h-6 text-${stat.color}`} />
               </div>
-              <div className={`flex items-center gap-1 text-sm font-medium ${stat.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
+              <div className={`flex items-center gap-1 text-sm font-medium ${stat.trend === 'up' ? 'text-lingua-green' : 'text-lingua-red'}`}>
                 {stat.change} <ArrowUpRight className="w-3 h-3" />
               </div>
             </div>
@@ -103,15 +103,15 @@ export default async function AdminDashboardPage() {
         <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
           <h2 className="text-xl font-bold text-gray-900 mb-6">Actions Rapides</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <button className="p-4 rounded-2xl border border-dashed border-gray-200 hover:border-gray-900 hover:bg-gray-50 transition-all text-left group">
-              <div className="w-10 h-10 rounded-xl bg-gray-900 text-white flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <button className="p-4 rounded-2xl border border-dashed border-gray-200 hover:border-lingua-blue hover:bg-lingua-blue/5 transition-all text-left group">
+              <div className="w-10 h-10 rounded-xl bg-lingua-blue text-white flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                 <BookOpen className="w-5 h-5" />
               </div>
               <p className="font-bold text-gray-900 text-sm">Nouveau Cours</p>
               <p className="text-xs text-gray-500 mt-1">Ajouter un programme</p>
             </button>
-            <button className="p-4 rounded-2xl border border-dashed border-gray-200 hover:border-gray-900 hover:bg-gray-50 transition-all text-left group">
-              <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <button className="p-4 rounded-2xl border border-dashed border-gray-200 hover:border-lingua-green hover:bg-lingua-green/5 transition-all text-left group">
+              <div className="w-10 h-10 rounded-xl bg-lingua-green text-white flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                 <Users className="w-5 h-5" />
               </div>
               <p className="font-bold text-gray-900 text-sm">Gérer Étudiants</p>

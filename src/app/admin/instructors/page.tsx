@@ -1,7 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { 
   Plus, 
-  Search, 
   Edit2, 
   Trash2, 
   Mail, 
@@ -10,6 +9,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function AdminInstructorsPage() {
   const supabase = await createClient();
@@ -23,11 +23,11 @@ export default async function AdminInstructorsPage() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Gestion des Formateurs</h1>
+          <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-lingua-blue to-lingua-red mb-2">Gestion des Formateurs</h1>
           <p className="text-gray-500">Gérez les profils des enseignants de votre académie.</p>
         </div>
         <Link href="/admin/instructors/new">
-          <Button className="h-12 px-6 rounded-2xl gap-2 bg-blue-600 hover:bg-blue-700">
+          <Button size="lg" variant="lingua-blue" className="h-12 px-6 rounded-2xl gap-2 shadow-lg shadow-lingua-blue/20">
             <Plus className="w-5 h-5" /> Nouveau Formateur
           </Button>
         </Link>
@@ -49,8 +49,8 @@ export default async function AdminInstructorsPage() {
                 <tr key={instructor.id} className="hover:bg-gray-50/50 transition-colors group">
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 border border-gray-100">
-                        <img src={instructor.photo_url} alt="" className="w-full h-full object-cover" />
+                      <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 border border-gray-100 relative">
+                        <Image src={instructor.photo_url} alt="" fill className="object-cover" />
                       </div>
                       <div>
                         <p className="font-bold text-gray-900 text-sm">{instructor.full_name}</p>
@@ -63,9 +63,9 @@ export default async function AdminInstructorsPage() {
                   </td>
                   <td className="px-6 py-5">
                     <div className="flex gap-2">
-                      {instructor.social_links?.linkedin && <ExternalLink className="w-4 h-4 text-gray-300" />}
-                      {instructor.social_links?.twitter && <Mail className="w-4 h-4 text-gray-300" />}
-                      {instructor.social_links?.globe && <Globe className="w-4 h-4 text-gray-300" />}
+                      {instructor.social_links?.linkedin && <ExternalLink className="w-4 h-4 text-lingua-blue" />}
+                      {instructor.social_links?.twitter && <Mail className="w-4 h-4 text-lingua-red" />}
+                      {instructor.social_links?.globe && <Globe className="w-4 h-4 text-lingua-green" />}
                     </div>
                   </td>
                   <td className="px-6 py-5">

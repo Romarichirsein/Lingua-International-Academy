@@ -4,6 +4,10 @@
   --color-background: #ffffff;
   --color-foreground: #0a0a0a;
 
+  --color-lingua-red: #E31E24;
+  --color-lingua-green: #006837;
+  --color-lingua-blue: #004A99;
+
   --font-sans: var(--font-outfit), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
@@ -15,6 +19,14 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
+  }
+
+  h2 {
+    color: var(--color-lingua-green);
+  }
+
+  h3 {
+    color: var(--color-lingua-blue);
   }
 }
 
@@ -124,4 +136,10 @@
   background-color: #1a1a1a !important;
   border-color: #262626 !important;
   color: #f5f5f5 !important;
+}
+
+input:focus, textarea:focus {
+  outline: none !important;
+  border-color: var(--color-lingua-blue) !important;
+  box-shadow: 0 0 0 2px rgba(0, 74, 153, 0.1) !important;
 }

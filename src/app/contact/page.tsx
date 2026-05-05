@@ -14,9 +14,9 @@ export default function ContactPage() {
             <div className="max-w-5xl mx-auto">
               <FadeIn>
                 <div className="text-center mb-16">
-                  <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight">Contactez-nous</h1>
+                  <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-lingua-blue to-lingua-red mb-6 tracking-tight">Contactez-nous</h1>
                   <p className="text-xl text-gray-500 max-w-2xl mx-auto">
-                    Une question, un partenariat ou besoin d'aide ? Notre équipe vous répond sous 24 heures.
+                    Une question, un partenariat ou besoin d&apos;aide ? Notre équipe vous répond sous 24 heures.
                   </p>
                 </div>
               </FadeIn>
@@ -46,9 +46,9 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Message</label>
-                        <textarea id="message" rows={5} className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 transition-colors resize-none" placeholder="Décrivez votre demande en détail..." />
+                        <textarea id="message" rows={5} className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-lingua-blue transition-colors resize-none" placeholder="Décrivez votre demande en détail..." />
                       </div>
-                      <Button size="lg" className="w-full sm:w-auto">Envoyer le message</Button>
+                      <Button size="lg" variant="lingua-blue" className="w-full sm:w-auto">Envoyer le message</Button>
                     </form>
                   </FadeIn>
                 </div>
@@ -57,17 +57,17 @@ export default function ContactPage() {
                 <div className="lg:col-span-2 space-y-8">
                   <FadeIn delay={0.3} direction="left">
                     <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
-                      <h3 className="font-bold text-gray-900 mb-6">Informations</h3>
+                      <h3 className="font-bold mb-6">Informations</h3>
                       <div className="space-y-6">
                         <div className="flex items-start">
-                          <Mail className="w-5 h-5 text-gray-400 mr-4 mt-0.5 shrink-0" />
+                          <Mail className="w-5 h-5 text-lingua-blue mr-4 mt-0.5 shrink-0" />
                           <div>
                             <div className="text-sm font-medium text-gray-900">Email</div>
                             <div className="text-sm text-gray-500">linguainternationalacademy@gmail.com</div>
                           </div>
                         </div>
                         <div className="flex items-start">
-                          <Phone className="w-5 h-5 text-gray-400 mr-4 mt-0.5 shrink-0" />
+                          <Phone className="w-5 h-5 text-lingua-blue mr-4 mt-0.5 shrink-0" />
                           <div>
                             <div className="text-sm font-medium text-gray-900">Téléphones</div>
                             <div className="text-sm text-gray-500">
@@ -78,7 +78,7 @@ export default function ContactPage() {
                           </div>
                         </div>
                         <div className="flex items-start">
-                          <MapPin className="w-5 h-5 text-gray-400 mr-4 mt-0.5 shrink-0" />
+                          <MapPin className="w-5 h-5 text-lingua-blue mr-4 mt-0.5 shrink-0" />
                           <div>
                             <div className="text-sm font-medium text-gray-900">Adresses</div>
                             <div className="text-sm text-gray-500">

@@ -19,7 +19,8 @@ import {
 export default function VerificationPage() {
   const [code, setCode] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "valid" | "invalid">("idle");
-  const [data, setData] = useState<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [data, setData] = useState<Record<string, any> | null>(null);
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();

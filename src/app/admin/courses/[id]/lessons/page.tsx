@@ -2,11 +2,9 @@ import { createClient } from "@/lib/supabase/server";
 import { 
   Plus, 
   ArrowLeft, 
-  GripVertical, 
   PlayCircle, 
   Clock, 
   Trash2,
-  Edit,
   Save,
   Book
 } from "lucide-react";

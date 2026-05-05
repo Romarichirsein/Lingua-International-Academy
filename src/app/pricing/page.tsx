@@ -58,7 +58,7 @@ export default function PricingPage() {
         <section className="bg-white py-20 md:py-32">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl">
             <FadeIn>
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+              <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-lingua-blue to-lingua-red mb-6 tracking-tight">
                 Des tarifs simples et transparents
               </h1>
             </FadeIn>
@@ -75,29 +75,29 @@ export default function PricingPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {plans.map((plan, idx) => (
                 <FadeIn key={plan.name} delay={0.1 * idx}>
-                  <div className={`rounded-2xl p-8 border ${plan.popular ? 'border-gray-900 shadow-xl relative' : 'border-gray-200 shadow-sm'} bg-white h-full flex flex-col`}>
+                  <div className={`rounded-2xl p-8 border ${plan.popular ? 'border-lingua-blue shadow-xl relative' : 'border-gray-200 shadow-sm'} bg-white h-full flex flex-col`}>
                     {plan.popular && (
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                        <span className="bg-gray-900 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                        <span className="bg-lingua-blue text-white text-xs font-semibold px-3 py-1 rounded-full">
                           Le plus populaire
                         </span>
                       </div>
                     )}
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">{plan.name}</h3>
+                    <h3 className="text-lg font-bold mb-2">{plan.name}</h3>
                     <div className="mb-4">
-                      <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
+                      <span className="text-4xl font-bold text-lingua-blue">{plan.price}</span>
                       {plan.period && <span className="text-gray-500 text-sm">{plan.period}</span>}
                     </div>
                     <p className="text-sm text-gray-500 mb-6">{plan.description}</p>
                     <Link href="/courses" className="mt-auto">
-                      <Button className={`w-full mb-8 ${plan.popular ? '' : ''}`} variant={plan.popular ? "default" : "outline"}>
+                      <Button className="w-full mb-8" variant={plan.popular ? "lingua-blue" : "outline"}>
                         {plan.cta}
                       </Button>
                     </Link>
                     <ul className="space-y-3">
                       {plan.features.map((feature) => (
                         <li key={feature} className="flex items-start text-sm text-gray-600">
-                          <CheckCircle2 className="w-4 h-4 text-gray-900 mr-2 mt-0.5 shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-lingua-green mr-2 mt-0.5 shrink-0" />
                           {feature}
                         </li>
                       ))}

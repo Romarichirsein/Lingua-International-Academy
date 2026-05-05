@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Search, Clock, BookOpen, User } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 async function getCourses() {
   try {
@@ -37,9 +38,9 @@ export default async function CoursesPage() {
         <section className="bg-white border-b border-gray-100 py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn>
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">Explorez nos programmes</h1>
+              <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-lingua-blue to-lingua-red mb-4">Explorez nos programmes</h1>
               <p className="text-lg text-gray-500 max-w-2xl mb-8">
-                Découvrez notre sélection de cours dispensés par des experts de l'industrie. Filtrez par catégorie pour trouver la formation qui correspond à vos objectifs.
+                Découvrez notre sélection de cours dispensés par des experts de l&apos;industrie. Filtrez par catégorie pour trouver la formation qui correspond à vos objectifs.
               </p>
             </FadeIn>
             
@@ -62,8 +63,8 @@ export default async function CoursesPage() {
                 {CATEGORIES.map((cat, index) => (
                   <Button 
                     key={cat} 
-                    variant={index === 0 ? "default" : "outline"} 
-                    className={index === 0 ? "bg-gray-900 text-white" : "text-gray-600 bg-white"}
+                    variant={index === 0 ? "lingua-blue" : "outline"} 
+                    className={index === 0 ? "" : "text-gray-600 bg-white"}
                     size="sm"
                   >
                     {cat}
@@ -84,13 +85,14 @@ export default async function CoursesPage() {
                     
                     {/* IMAGE CONTAINER */}
                     <div className="relative aspect-video w-full overflow-hidden bg-gray-100">
-                      <img 
+                      <Image 
                         src={course.image} 
                         alt={course.title} 
-                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/90 backdrop-blur-sm text-gray-800 shadow-sm">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/90 backdrop-blur-sm text-lingua-green shadow-sm border border-lingua-green/10">
                           {course.category}
                         </span>
                       </div>
@@ -103,7 +105,7 @@ export default async function CoursesPage() {
                         <span className="flex items-center"><BookOpen className="w-3 h-3 mr-1" /> {course.level}</span>
                       </div>
                       
-                      <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-gray-600 transition-colors">
+                      <h3 className="text-lg font-bold mb-2 line-clamp-2 group-hover:text-lingua-blue transition-colors">
                         {course.title}
                       </h3>
                       
@@ -112,7 +114,7 @@ export default async function CoursesPage() {
                           <User className="w-4 h-4 mr-2" />
                           {course.instructor}
                         </div>
-                        <div className="font-bold text-gray-900 text-lg">
+                        <div className="font-bold text-lingua-blue text-lg">
                           {course.price.toLocaleString()} FCFA
                         </div>
                       </div>

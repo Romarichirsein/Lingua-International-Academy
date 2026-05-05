@@ -21,6 +21,7 @@ export function SocialAuthButtons({ redirectTo = "/dashboard" }: { redirectTo?: 
         }
       });
       if (error) throw error;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       setError(e.message || "Une erreur est survenue lors de la connexion.");
       setIsLoading(null);

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { BookOpen, Clock, PlayCircle, Trophy, ArrowRight } from "lucide-react";
 
 export default async function DashboardPage() {
@@ -129,7 +130,7 @@ export default async function DashboardPage() {
                   return (
                     <Link href={`/learn/${course.id}`} key={course.id} className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300">
                       <div className="aspect-video relative overflow-hidden bg-gray-100">
-                        <img src={course.image} alt={course.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" />
+                        <Image src={course.image} alt={course.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                           <PlayCircle className="w-12 h-12 text-white" />
                         </div>
@@ -164,7 +165,7 @@ export default async function DashboardPage() {
                 {unenrolledCourses.slice(0, 4).map((course: { id: string; title: string; image: string; price: number; category: string }) => (
                   <Link href={`/courses/${course.id}`} key={course.id} className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-all">
                     <div className="aspect-video relative overflow-hidden bg-gray-100">
-                      <img src={course.image} alt={course.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" />
+                      <Image src={course.image} alt={course.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                     </div>
                     <div className="p-4">
                       <h3 className="font-bold text-gray-900 text-sm line-clamp-2">{course.title}</h3>

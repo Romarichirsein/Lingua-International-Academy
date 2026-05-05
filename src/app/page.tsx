@@ -3,8 +3,10 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { MOCK_COURSES } from "@/lib/mock-data";
 import { FadeIn } from "@/components/animations/FadeIn";
+import { HeroSlider } from "@/components/home/HeroSlider";
 import { ArrowRight, PlayCircle, CheckCircle2, Star, Clock, BookOpen, User } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -24,42 +26,41 @@ export default function Home() {
       <main className="flex-1 overflow-hidden">
         
         {/* HERO SECTION */}
-        <section className="relative overflow-hidden bg-white pt-20 pb-24 md:pt-32 md:pb-40">
-          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] rounded-full bg-blue-50/50 blur-3xl" />
-          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-[400px] h-[400px] rounded-full bg-gray-50/80 blur-3xl" />
+        <section className="relative overflow-hidden min-h-[80vh] flex items-center pt-20 pb-24 md:pt-32 md:pb-40">
+          <HeroSlider />
           
-          <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 z-20">
             <div className="max-w-4xl mx-auto text-center">
               <FadeIn delay={0.1}>
-                <div className="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-600 mb-8 shadow-sm">
-                  <span className="flex h-2 w-2 rounded-full bg-green-500 mr-2"></span>
-                  Nouveau : Cours intensifs d'été disponibles
+                <div className="inline-flex items-center rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3 py-1 text-sm text-white mb-8 shadow-sm">
+                  <span className="flex h-2 w-2 rounded-full bg-lingua-green mr-2"></span>
+                  Nouveau : Cours intensifs d&apos;été disponibles
                 </div>
               </FadeIn>
               
               <FadeIn delay={0.2}>
-                <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-gray-900 mb-8 leading-tight">
-                  Maîtrisez une nouvelle langue avec <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-500">l'excellence.</span>
+                <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-8 leading-tight">
+                  Maîtrisez une nouvelle langue avec <span className="text-transparent bg-clip-text bg-gradient-to-r from-lingua-blue to-lingua-red">l&apos;excellence.</span>
                 </h1>
               </FadeIn>
               
               <FadeIn delay={0.3}>
-                <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-                  Rejoignez des milliers d'étudiants qui ont transformé leur carrière et leur vie personnelle grâce à nos programmes immersifs et nos experts mondiaux.
+                <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
+                  Rejoignez des milliers d&apos;étudiants qui ont transformé leur carrière et leur vie personnelle grâce à nos programmes immersifs et nos experts mondiaux.
                 </p>
               </FadeIn>
               
               <FadeIn delay={0.4}>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <Link href="/courses">
-                    <Button size="lg" className="w-full sm:w-auto group">
+                  <Link href="/courses" className="w-full sm:w-auto">
+                    <Button size="lg" variant="lingua-red" className="w-full sm:w-auto group">
                       Explorer les cours
                       <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </Button>
                   </Link>
-                  <Link href="/methodology">
-                    <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                      <PlayCircle className="mr-2 h-5 w-5 text-gray-500" />
+                  <Link href="/methodology" className="w-full sm:w-auto">
+                    <Button size="lg" variant="lingua-outline" className="w-full sm:w-auto">
+                      <PlayCircle className="mr-2 h-5 w-5 opacity-80" />
                       Voir la méthode
                     </Button>
                   </Link>
@@ -67,17 +68,17 @@ export default function Home() {
               </FadeIn>
 
               <FadeIn delay={0.5}>
-                <div className="mt-16 flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm text-gray-500">
+                <div className="mt-16 flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm text-gray-300">
                   <div className="flex items-center">
-                    <CheckCircle2 className="mr-2 h-5 w-5 text-gray-300" />
+                    <CheckCircle2 className="mr-2 h-5 w-5 text-lingua-green" />
                     Professeurs certifiés
                   </div>
                   <div className="flex items-center">
-                    <CheckCircle2 className="mr-2 h-5 w-5 text-gray-300" />
+                    <CheckCircle2 className="mr-2 h-5 w-5 text-lingua-green" />
                     Accès à vie
                   </div>
                   <div className="flex items-center">
-                    <CheckCircle2 className="mr-2 h-5 w-5 text-gray-300" />
+                    <CheckCircle2 className="mr-2 h-5 w-5 text-lingua-green" />
                     Certificats reconnus
                   </div>
                 </div>
@@ -106,8 +107,8 @@ export default function Home() {
             <FadeIn>
               <div className="flex items-end justify-between mb-12">
                 <div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Nos cours populaires</h2>
-                  <p className="text-gray-500 max-w-lg">Les formations les plus demandées par notre communauté d'apprenants.</p>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-3">Nos cours populaires</h2>
+                  <p className="text-gray-500 max-w-lg">Les formations les plus demandées par notre communauté d&apos;apprenants.</p>
                 </div>
                 <Link href="/courses" className="hidden md:inline-flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
                   Voir tout <ArrowRight className="ml-1 h-4 w-4" />
@@ -120,9 +121,9 @@ export default function Home() {
                 <FadeIn key={course.id} delay={0.1 * (idx + 1)}>
                   <Link href={`/courses/${course.id}`} className="group flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full">
                     <div className="relative aspect-video w-full overflow-hidden bg-gray-100">
-                      <img src={course.image} alt={course.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" />
+                      <Image src={course.image} alt={course.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                       <div className="absolute top-3 left-3">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/90 backdrop-blur-sm text-gray-800 shadow-sm">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/90 backdrop-blur-sm text-lingua-green shadow-sm border border-lingua-green/10">
                           {course.category}
                         </span>
                       </div>
@@ -139,7 +140,7 @@ export default function Home() {
                         <div className="flex items-center text-sm text-gray-600">
                           <User className="w-4 h-4 mr-2" />{course.instructor}
                         </div>
-                        <div className="font-bold text-gray-900 text-lg">{course.price.toLocaleString()} FCFA</div>
+                        <div className="font-bold text-lingua-blue text-lg">{course.price.toLocaleString()} FCFA</div>
                       </div>
                     </div>
                   </Link>
@@ -161,7 +162,7 @@ export default function Home() {
         <section className="py-20 md:py-32 bg-gray-50/50 border-y border-gray-100">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-16">Ce que disent nos étudiants</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">Ce que disent nos étudiants</h2>
             </FadeIn>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
@@ -191,10 +192,10 @@ export default function Home() {
                         <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                       ))}
                     </div>
-                    <p className="text-gray-600 leading-relaxed mb-8">"{testimonial.quote}"</p>
+                    <p className="text-gray-600 leading-relaxed mb-8">&quot;{testimonial.quote}&quot;</p>
                     <div className="flex items-center">
-                      <div className="w-10 h-10 rounded-full bg-gray-200 mr-3 overflow-hidden">
-                        <img src={`https://ui-avatars.com/api/?name=${testimonial.name.replace(' ', '+')}&background=random&color=fff`} alt={testimonial.name} className="w-full h-full object-cover" />
+                      <div className="w-10 h-10 rounded-full bg-gray-200 mr-3 overflow-hidden relative">
+                        <Image src={`https://ui-avatars.com/api/?name=${testimonial.name.replace(' ', '+')}&background=random&color=fff`} alt={testimonial.name} fill className="object-cover" />
                       </div>
                       <div>
                         <div className="font-semibold text-gray-900 text-sm">{testimonial.name}</div>
@@ -209,28 +210,31 @@ export default function Home() {
         </section>
 
         {/* CTA SECTION */}
-        <section className="py-20 md:py-32 bg-gray-900 text-white">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+        <section className="relative py-20 md:py-32 bg-lingua-blue text-white overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -mr-48 -mt-48" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-lingua-red/10 rounded-full blur-3xl -ml-48 -mb-48" />
+          
+          <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl z-10">
             <FadeIn>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">
                 Prêt à transformer votre avenir ?
               </h2>
             </FadeIn>
             <FadeIn delay={0.1}>
-              <p className="text-xl text-gray-400 mb-10 leading-relaxed">
-                Rejoignez plus de 12 000 étudiants qui ont déjà fait le choix de l'excellence. Commencez votre première leçon gratuitement.
+              <p className="text-xl text-white/80 mb-10 leading-relaxed">
+                Rejoignez plus de 12 000 étudiants qui ont déjà fait le choix de l&apos;excellence. Commencez votre première leçon gratuitement.
               </p>
             </FadeIn>
             <FadeIn delay={0.2}>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/courses">
-                  <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 w-full sm:w-auto">
+                <Link href="/auth/register">
+                  <Button size="lg" variant="lingua-red" className="w-full sm:w-auto shadow-lg shadow-black/20">
                     Commencer gratuitement
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
                 <Link href="/about">
-                  <Button size="lg" variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white w-full sm:w-auto">
+                  <Button size="lg" variant="lingua-outline" className="w-full sm:w-auto">
                     En savoir plus
                   </Button>
                 </Link>
