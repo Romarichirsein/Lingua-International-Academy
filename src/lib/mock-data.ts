@@ -8,7 +8,7 @@ export const MOCK_COURSES = [
     level: "Débutant",
     price: 150000,
     youtubeId: "vBvPzE2x-4o",
-    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80",
     category: "Business",
     objectives: [
       "Configurer un espace de travail Trello",
@@ -101,7 +101,7 @@ export const MOCK_COURSES = [
     level: "Avancé",
     price: 250000,
     youtubeId: "4bZJ_a6w23M",
-    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1552581234-26160f608093?w=800&q=80",
     category: "Vente",
     objectives: [
       "Mener des appels de prospection efficaces",

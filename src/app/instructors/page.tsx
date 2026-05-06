@@ -9,7 +9,8 @@ import {
   BookOpen, 
   Users, 
   Star,
-  ExternalLink
+  ExternalLink,
+  User
 } from "lucide-react";
 
 async function getInstructors() {
@@ -89,9 +90,10 @@ export default async function InstructorsPage() {
                 <FadeIn key={instructor.id} delay={0.1 * idx}>
                   <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full flex flex-col">
                     {/* Photo */}
-                    <div className="aspect-square relative overflow-hidden bg-gray-100 flex items-center justify-center shrink-0">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={instructor.photo_url} alt={instructor.full_name} className="w-full h-full object-cover" />
+                    <div className="aspect-square relative overflow-hidden bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-gray-200 transition-colors">
+                      <div className="w-24 h-24 rounded-full bg-lingua-blue/10 flex items-center justify-center text-lingua-blue">
+                        <User className="w-12 h-12" />
+                      </div>
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                         <div className="flex gap-4">
                           {instructor.social_links?.twitter && (

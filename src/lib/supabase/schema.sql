@@ -169,9 +169,9 @@ CREATE POLICY "Users can update own progress" ON lesson_progress FOR UPDATE USIN
 -- =============================================
 
 INSERT INTO courses (id, title, description, instructor, duration, level, price, youtube_id, image, category) VALUES
-  ('project-management-trello', 'Project Management with Trello', 'Apprenez à gérer vos projets de manière agile et efficace avec Trello. De la configuration de base aux automatisations avancées.', 'Sarah Jenkins', '4 semaines', 'Débutant', 49, 'vBvPzE2x-4o', 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80', 'Business'),
+  ('project-management-trello', 'Project Management with Trello', 'Apprenez à gérer vos projets de manière agile et efficace avec Trello. De la configuration de base aux automatisations avancées.', 'Sarah Jenkins', '4 semaines', 'Débutant', 49, 'vBvPzE2x-4o', 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80', 'Business'),
   ('financial-analyst-course', 'Complete Financial Analyst Course', 'Le cours complet pour devenir un analyste financier performant. Modélisation, Excel avancé, et analyse de données.', 'Michael Chen', '8 semaines', 'Intermédiaire', 199, '9o4v0GjE49o', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80', 'Finance'),
-  ('sales-training', 'Sales Training: Master the Art of Selling', 'Techniques de vente B2B et B2C, négociation, et psychologie de l''acheteur pour exploser vos quotas.', 'David Rodriguez', '6 semaines', 'Avancé', 129, '4bZJ_a6w23M', 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80', 'Vente'),
+  ('sales-training', 'Sales Training: Master the Art of Selling', 'Techniques de vente B2B et B2C, négociation, et psychologie de l''acheteur pour exploser vos quotas.', 'David Rodriguez', '6 semaines', 'Avancé', 129, '4bZJ_a6w23M', 'https://images.unsplash.com/photo-1552581234-26160f608093?w=800&q=80', 'Vente'),
   ('blender-creator', 'Complete Blender Creator', 'Créez des modèles 3D époustouflants, des animations et des rendus photoréalistes avec Blender 4.0.', 'Elena Rostova', '12 semaines', 'Débutant à Avancé', 149, 'TPrnSACiTJ4', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80', 'Design 3D')
 ON CONFLICT (id) DO NOTHING;
 
