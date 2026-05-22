@@ -15,6 +15,7 @@ const navLinks = [
   { href: "/verify", label: "Vérification Certificat" },
   { href: "/about", label: "À propos" },
   { href: "/contact", label: "Contact" },
+  { href: "/italy", label: "Étudier en Italie" },
 ];
 
 export function Navbar() {

@@ -52,6 +52,7 @@ export function Footer() {
               <li><Link href="/pricing" className="hover:text-lingua-blue transition-colors">Tarifs</Link></li>
               <li><Link href="/instructors" className="hover:text-lingua-blue transition-colors">Nos professeurs</Link></li>
               <li><Link href="/faq" className="hover:text-lingua-blue transition-colors">FAQ</Link></li>
+              <li><Link href="/italy" className="hover:text-lingua-blue transition-colors font-medium">Étudier en Italie</Link></li>
             </ul>
           </div>
 
